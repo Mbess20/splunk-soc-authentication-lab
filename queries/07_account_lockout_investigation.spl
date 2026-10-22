@@ -1,0 +1,4 @@
+source="soc_authentication_practice_logs.csv" host="SOC-LAB-WIN01" (EventCode=4625 OR EventCode=4740)
+| stats count(eval(EventCode=4625)) as Failed_Logins count(eval(EventCode=4740)) as Lockouts by Account_Name, Source_IP
+| where Lockouts >= 1
+| table Account_Name, Source_IP, Failed_Logins, Lockouts

@@ -1,0 +1,3 @@
+source="soc_authentication_practice_logs.csv" host="SOC-LAB-WIN01" Account_Name="alex"
+| table _time, Account_Name, Source_IP, EventCode, Outcome
+| sort 0 _time

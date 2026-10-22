@@ -1,0 +1,3 @@
+source="soc_authentication_practice_logs.csv" host="SOC-LAB-WIN01" EventCode=4625
+| stats count as Failed_Logins by Account_Name
+| sort - Failed_Logins

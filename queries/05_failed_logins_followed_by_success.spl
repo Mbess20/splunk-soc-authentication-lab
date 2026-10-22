@@ -1,0 +1,6 @@
+source="soc_authentication_practice_logs.csv" host="SOC-LAB-WIN01" (EventCode=4624 OR EventCode=4625)
+| sort 0 Account_Name Source_IP _time
+| streamstats count(eval(EventCode=4625)) as failures_before_success earliest(eval(if(EventCode=4625,_time,null()))) as first_failure_time by Account_Name Source_IP reset_after="(EventCode=4624)"
+| where EventCode=4624 AND failures_before_success>=5 AND (_time-first_failure_time)<=600
+| eval Minutes_Elapsed=round((_time-first_failure_time)/60,2)
+| table Account_Name Source_IP failures_before_success Minutes_Elapsed

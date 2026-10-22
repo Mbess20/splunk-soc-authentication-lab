@@ -1,0 +1,3 @@
+source="soc_authentication_practice_logs.csv" host="SOC-LAB-WIN01"
+| stats count by EventCode, Outcome
+| sort EventCode
